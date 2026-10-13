@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'sha256-C3dJN4z3+Q3cEfNcPLgiSNSw3reh7k2MylXBw2E7atY='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' mailto:; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'sha256-LWXhBMT7BULKgSdEa0Nx+YQhZCZ1mcGkZXBa3ld9Mw0='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' mailto:; upgrade-insecure-requests">
 <title>Ali Rıza Yılmaz | IT Uzmanı ve Bilgisayar Programcısı</title>
 <meta name="description" content="Ali Rıza Yılmaz'ın profesyonel portföyü. IT uzmanlığı, bilgisayar programcılığı, teknik projeler, sistemler, yazılım ve özgeçmiş.">
 <meta name="author" content="Ali Rıza Yılmaz"><meta name="robots" content="index,follow,max-image-preview:large">
@@ -49,6 +49,13 @@
 
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Ali Rıza Yılmaz","url":"https://aliyilmazgh.github.io/","image":"https://aliyilmazgh.github.io/ali-riza-yilmaz-vesikalik.png","jobTitle":["IT Specialist","Computer Programmer"],"sameAs":["https://github.com/aliyilmazgh"]}</script>
+
+<style id="interaction-deterrence">
+/* Best-effort deterrents only; browsers cannot be forced to prevent screenshots or source inspection. */
+html, body, body * { -webkit-user-select: none !important; user-select: none !important; -webkit-touch-callout: none !important; }
+input, textarea, select, [contenteditable="true"] { -webkit-user-select: text !important; user-select: text !important; }
+img { -webkit-user-drag: none !important; user-drag: none !important; }
+</style>
 </head>
 <body>
 <header class="topbar"><div class="wrap nav">
@@ -117,5 +124,25 @@ themeBtn.addEventListener("click",()=>setTheme(document.documentElement.dataset.
 document.getElementById("year").textContent=new Date().getFullYear();
 document.getElementById("contactForm").addEventListener("submit",e=>{e.preventDefault();const f=new FormData(e.currentTarget);const subject=encodeURIComponent(f.get("subject"));const body=encodeURIComponent("Name: "+f.get("name")+"\nEmail: "+f.get("email")+"\n\n"+f.get("message"));window.location.href="mailto:alirizayilmaz.iletisim@gmail.com?subject="+subject+"&body="+body});
 const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add("visible");observer.unobserve(entry.target)}}),{threshold:.08});document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
+
+
+/* Best-effort UI deterrence. These controls do NOT prevent screenshots, DevTools, or downloading assets already delivered to a browser. */
+(function(){
+  const isEditable = (el) => !!(el && (el.matches('input, textarea, select, [contenteditable="true"]') || el.closest('input, textarea, select, [contenteditable="true"]')));
+  document.addEventListener('contextmenu', function(e){ e.preventDefault(); }, true);
+  document.addEventListener('dragstart', function(e){ if (e.target && e.target.tagName === 'IMG') e.preventDefault(); }, true);
+  document.addEventListener('selectstart', function(e){ if (!isEditable(e.target)) e.preventDefault(); }, true);
+  document.addEventListener('copy', function(e){ if (!isEditable(document.activeElement)) e.preventDefault(); }, true);
+  document.addEventListener('cut', function(e){ if (!isEditable(document.activeElement)) e.preventDefault(); }, true);
+  document.addEventListener('keydown', function(e){
+    const k = (e.key || '').toLowerCase();
+    const devtools = e.key === 'F12' || (e.ctrlKey && e.shiftKey && ['i','j','c'].includes(k)) || (e.metaKey && e.altKey && ['i','j','c'].includes(k));
+    const sourceOrSave = (e.ctrlKey || e.metaKey) && ['u','s'].includes(k);
+    const print = (e.ctrlKey || e.metaKey) && k === 'p';
+    const copy = (e.ctrlKey || e.metaKey) && ['c','x'].includes(k) && !isEditable(document.activeElement);
+    if (devtools || sourceOrSave || print || copy) { e.preventDefault(); e.stopPropagation(); }
+  }, true);
+  document.querySelectorAll('img').forEach(function(img){ img.setAttribute('draggable','false'); });
+})();
 </script>
 </body></html>
